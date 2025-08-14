@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+* {font-family: "phetsarath ot";}
+
+
+.icon_color {
+    @apply text-transparent bg-clip-text bg-gradient-to-b from-[#00B8D1] to-[#005E6B]
+}
