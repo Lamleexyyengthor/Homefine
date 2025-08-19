@@ -13,7 +13,7 @@ const Layout = () => {
   
 
   return (
-    <div className="flex h-screen bg-[#E2E8F0] relative">
+    <div className="flex h-screenrelative">
       <SideBar/>
       
       <div className="flex-1 flex flex-col lg:ml-0">

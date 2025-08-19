@@ -14,7 +14,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
-
 export const Header = () => {
   const location = useLocation();
 
@@ -40,7 +39,7 @@ export const Header = () => {
         <div className="ml-15 flex text-[32px] items-center  w-auto h-[85px] flex-row gap-3">
           <activeItem.icon
             className="w-9 h-9"
-            style={{ stroke: "url(#gradientStroke)" }}
+            style={{ stroke: "url(#gradientStroke)" , }}
           />
           <p className="font-bold text-transparent bg-clip-text bg-gradient-to-b from-[#00B8D1] to-[#005E6B]">
             {activeItem.label}
