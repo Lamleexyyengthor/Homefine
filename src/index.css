@@ -1,7 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao&display=swap');
 @import "tailwindcss";
 
-* {font-family: "phetsarath ot";}
 
+* {
+    font-family: 'Noto Sans Lao', sans-serif;
+  }
+  
+.scrollbar-hide{
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar{
+    display: none;
+}
 
 .icon_color {
     @apply text-transparent bg-clip-text bg-gradient-to-b from-[#00B8D1] to-[#005E6B]

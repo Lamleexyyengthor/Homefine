@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import homes from "../../assets/homes.jpg";
 import ReservationDetailModal from "./ReservationDetailModal";
 import { Eye } from "lucide-react";
+import { IoMdDownload } from "react-icons/io";
 
 const properties = [
   {
@@ -33,7 +34,7 @@ const properties = [
   },
 ];
 
-export const Manage1 = () => {
+export const History = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState(null);
 
@@ -47,7 +48,6 @@ export const Manage1 = () => {
       {/* Gradient Card */}
       <div className="w-full max-w-[1236px] h-full rounded-2xl bg-gradient-to-b from-[#00B8D1] to-[#005E6B] p-[2px]">
         <div className="w-full h-full flex flex-col rounded-2xl bg-white p-4 overflow-auto">
-          
           {/* Table wrapper */}
           <div className="min-w-[800px]">
             <table className="w-full bg-white rounded-lg shadow-md overflow-hidden">
@@ -73,39 +73,47 @@ export const Manage1 = () => {
                         className="w-[141px] h-[94px] object-cover rounded-lg mx-auto"
                       />
                     </td>
-                    <td className="p-2 text-center align-middle text-[15px]">{p.name}</td>
-                    <td className="p-2 text-center align-middle text-[15px]">{p.category}</td>
-                    <td className="p-2 text-center align-middle text-[15px]">{p.price}</td>
-                    <td className="p-2 text-center align-middle text-[15px]">{p.owner}</td>
-                    <td className="p-2 text-center align-middle text-[15px]">{p.phone}</td>
-                    <td className="p-2 text-center align-middle text-[15px]">{p.date}</td>
+                    <td className="p-2 text-center align-middle text-[15px]">
+                      {p.name}
+                    </td>
+                    <td className="p-2 text-center align-middle text-[15px]">
+                      {p.category}
+                    </td>
+                    <td className="p-2 text-center align-middle text-[15px]">
+                      {p.price}
+                    </td>
+                    <td className="p-2 text-center align-middle text-[15px]">
+                      {p.owner}
+                    </td>
+                    <td className="p-2 text-center align-middle text-[15px]">
+                      {p.phone}
+                    </td>
+                    <td className="p-2 text-center align-middle text-[15px]">
+                      {p.date}
+                    </td>
                     <td className="p-5 flex flex-row gap-4 align-middle justify-center items-center mt-6">
-                      <Eye />
-                      <button
-                        onClick={() => handleOpen(p)}
-                        className="bg-cyan-500 w-[81px] h-[40px] text-white px-3 py-1 rounded-full hover:bg-cyan-600"
-                      >
-                        ອະນຸມັດ
-                      </button>
-                      <button className="bg-red-500 w-[81px] h-[40px] text-white px-3 py-1 rounded-full hover:bg-red-600">
-                        ປະຕິເສດ
-                      </button>
+                      <Eye className="flex mt-2"/>
+                      <div className="flex flex-row items-center justify-center">
+                        <div className="w-[30px] text-white mr-5 mt-1 bg-[#00B8D1] rounded-full flex flex-col items-center justify-center h-[30px]">
+                          <IoMdDownload />
+                        </div>
+                        <p className="text-[15px] text-[#00B8D1]">ດາວໂຫຼດຟາຍລ໌</p>
+                      </div>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-
         </div>
       </div>
 
       {/* Modal */}
-      <ReservationDetailModal
+      {/* <ReservationDetailModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         property={selectedProperty}
-      />
+      /> */}
     </div>
   );
 };

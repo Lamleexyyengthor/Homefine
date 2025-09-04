@@ -13,15 +13,15 @@ const Layout = () => {
   
 
   return (
-    <div className="flex h-screenrelative">
+    <div className="flex h-screenrelative ">
       <SideBar/>
       
       <div className="flex-1 flex flex-col lg:ml-0">
         <Header />
         
         {/* Main Content Area */}
-        <main className="flex-1 p-4 lg:p-6 overflow-auto">
-          <Outlet />
+        <main className="flex-1 p-4 lg:p-6 overflow-hidden">
+          <Outlet/>
         </main>
       </div>
     </div>

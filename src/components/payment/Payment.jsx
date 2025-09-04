@@ -1,37 +1,42 @@
 import { Plus, Search } from "lucide-react";
 import React, { useState } from "react";
+import { FaPen, FaTrash } from "react-icons/fa6";
+
 import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { Addss } from "./Addss";
 
-export const Roommanage = () => {
+
+export const Payment = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("/rooms"); // ค่า default
+  const [activeTab, setActiveTab] = useState("/payments"); // ค่า default
   const handleSave = () => {
     // setIsOpen(false); // ປິດ modal ຟອມ
     setShowSuccess(true); // ເປີດ success modal
   };
 
   const tabs = [
-    { label: "ຫ້ອງທັງໝົດ", path: "/rooms" },
-    { label: "ຫ້ອງທີ່ເຕັມແລ້ວ", path: "/rooms/rentRoom" },
-    { label: "ຫ້ອງທີ່ຫວ່າງ", path: "/rooms/emty" },
+    { label: "ທັງໝົດ", path: "/payments" },
+    { label: "ລໍຖ້າການຊໍາລະ", path: "/payments/waitPayment" },
+    { label: "ປະຫວັດການຊໍາລະເງີນ", path: "/payments/historypay" },
+    { label: "ຈັດການການຕີດໜີ້", path: "/payments/debt" },
+    { label: "ປະຫວັດການຕີດໜີ້", path: "/payments/hisDebt" },
+    { label: "ສ້າງລີ້ງຊໍາລະເງີນ", path: "/payments/emty" },
   ];
   const handleAddss = () => {
     setIsOpen(true); // ປິດ modal ຟອມ
   };
   return (
-    <div className=" p-4 bg-gray-50 min-h-screen scrollbar-hide overflow-hidden">
+    <div className=" p-4 bg-gray-50 min-h-screen scrollbar-hide">
       {/* Tabs */}
-      <div className=" flex gap-10 border-b mb-4">
+      <div className=" flex gap-15 border-b mb-4">
         {tabs.map((tab) => (
           <button
             key={tab.path}
             onClick={() => {
               navigate(tab.path);
-              setActiveTab(tab.path);
+              setActiveTab(tab.path); // อัพเดท tab ที่เลือก
             }}
             className={`${
               activeTab === tab.path
@@ -54,30 +59,17 @@ export const Roommanage = () => {
           />
           <Search className="absolute right-3 text-[#005E6B] top-1/2 -translate-y-1/2" />
         </div>
-        <div
-          onClick={() => handleAddss()}
-          className="border w-[138px] h-[48px] text-white rounded-full items-center flex flex-row justify-center gap-2"
-          style={{
-            background: "linear-gradient(180deg, #00B8D1 0%, #005E6B 100%)",
-          }}
-        >
-          <Plus />
-          <p>ເພີ່ມຫ້ອງ</p>
-        </div>
       </div>
-      <p className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-[#00B8D1] to-[#005E6B]">
-          ຈໍານວນຫ້ອງທັງໝົດ 6 ຫ້ອງ
-        </p>
       {/* oulet */}
       <Outlet />
       {/* Modal */}
-      <Addss
+      {/* <Addss
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         handleSave={handleSave}
         showSuccess={showSuccess}
         setShowSuccess={setShowSuccess}
-      />
+      /> */}
       {/* Success Modal */}
     </div>
   );

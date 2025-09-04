@@ -1,23 +1,23 @@
-import { Plus, Search } from "lucide-react";
+
 import React, { useState } from "react";
+import { CgCalendarDates } from "react-icons/cg";
 import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { Addss } from "./Addss";
+// import { Addss } from "./Addss";
 
-export const Roommanage = () => {
+export const Checkin = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("/rooms"); // ค่า default
+  const [activeTab, setActiveTab] = useState("/checkin"); // ค่า default
   const handleSave = () => {
     // setIsOpen(false); // ປິດ modal ຟອມ
     setShowSuccess(true); // ເປີດ success modal
   };
 
   const tabs = [
-    { label: "ຫ້ອງທັງໝົດ", path: "/rooms" },
-    { label: "ຫ້ອງທີ່ເຕັມແລ້ວ", path: "/rooms/rentRoom" },
-    { label: "ຫ້ອງທີ່ຫວ່າງ", path: "/rooms/emty" },
+    { label: "ຫ້ອງທັງໝົດ", path: "/checkin" },
+    { label: "ປະຫວັດການແຈ້ງອອກ", path: "/checkin/hischeckout" },
   ];
   const handleAddss = () => {
     setIsOpen(true); // ປິດ modal ຟອມ
@@ -45,39 +45,30 @@ export const Roommanage = () => {
       </div>
 
       {/* Search + Add button */}
-      <div className=" flex flex-row justify-between">
+      <div className=" flex flex-row items-center gap-4">
         <div className="relative w-[400px] mb-4">
           <input
             type="text"
             placeholder="ຄົ້ນຫາເລກຫ້ອງ, ລາຄາ, ຊັ້ນ"
             className="w-full pr-10 px-4 py-2 border rounded-full focus:outline-none"
           />
-          <Search className="absolute right-3 text-[#005E6B] top-1/2 -translate-y-1/2" />
+          {/* <Search className="absolute right-3 text-[#005E6B] top-1/2 -translate-y-1/2" /> */}
         </div>
-        <div
-          onClick={() => handleAddss()}
-          className="border w-[138px] h-[48px] text-white rounded-full items-center flex flex-row justify-center gap-2"
-          style={{
-            background: "linear-gradient(180deg, #00B8D1 0%, #005E6B 100%)",
-          }}
-        >
-          <Plus />
-          <p>ເພີ່ມຫ້ອງ</p>
-        </div>
+        <CgCalendarDates className="mb-4 text-[#005E6B] w-8 h-8"/>
       </div>
-      <p className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-[#00B8D1] to-[#005E6B]">
-          ຈໍານວນຫ້ອງທັງໝົດ 6 ຫ້ອງ
-        </p>
+      <p className="text-[17px] text-[#005E6B]">
+        ຈໍານວນຫ້ອງ check-in ທັງໝົດ 9 ຫ້ອງ
+      </p>
       {/* oulet */}
       <Outlet />
       {/* Modal */}
-      <Addss
+      {/* <Addss
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         handleSave={handleSave}
         showSuccess={showSuccess}
         setShowSuccess={setShowSuccess}
-      />
+      /> */}
       {/* Success Modal */}
     </div>
   );

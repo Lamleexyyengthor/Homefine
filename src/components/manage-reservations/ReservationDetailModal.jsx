@@ -16,7 +16,7 @@ const ReservationDetailModal = ({ isOpen, onClose, property }) => {
   return (
     <>
       <div className="border fixed flex flex-cols inset-0 bg-black/40 flex items-center justify-center z-50">
-        <div className="bg-white  flex flex-col rounded-xl shadow-lg w-[1051px] h-[797px] max-w-full p-6 relative">
+        <div className="bg-white  flex flex-col rounded-xl shadow-lg w-[1011px] h-[707px] max-w-full p-6 relative">
           <div>
             {/* Header */}
             <h2 className="text-center text-2xl font-semibold mb-6">

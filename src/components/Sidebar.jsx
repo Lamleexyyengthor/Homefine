@@ -13,34 +13,41 @@ import {
 import photo from "../assets/phto.png";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-
+import { IoIosLogOut } from "react-icons/io";
+import { CiLogin } from "react-icons/ci";
+import { useNavigate } from "react-router-dom";
 const menuItems = [
   { icon: LayoutGrid, label: "ໜ້າຫຼັກ", path: "/" },
   { icon: DoorClosed, label: "ຈັດການການຈອງ", path: "/bookings" },
   { icon: BedDouble, label: "ຈັດການຫ້ອງ", path: "/rooms" },
   { icon: Users, label: "ຈັດການຜູ້ເຊົ່າ", path: "/tenants" },
   { icon: Banknote, label: "ຊຳລະເງີນ", path: "/payments" },
-  { icon: Repeat1, label: "ແຈ້ງບັນຫາ", path: "/issues" },
-  { icon: ScrollText, label: "ອອກສັນຍາເຊົ່າ", path: "/contracts" },
-  { icon: StickyNote, label: "ອອກໃບພັກເຊົ່າ", path: "/leave-requests" },
+  { icon: CiLogin, label: "ແຈ້ງເຂົ້າ", path: "/checkin" },
+  { icon: IoIosLogOut, label: "ແຈ້ງອອກ", path: "/checkout" },
+  { icon: Repeat1, label: "ແຈ້ງບັນຫາ", path: "/reportproblem" },
+  { icon: ScrollText, label: "ຈັດການສັນຍາ", path: "/contracts" },
   { icon: NotepadText, label: "ລາຍງານ", path: "/reports" },
 ];
 
 const SideBar = () => {
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
+  const handleLogout = () => {
+    // localStorage.removeItem("token"); // ถ้ามี token
+    navigate("/login"); // กลับไปหน้า login
+  };
   return (
     <div
       onMouseEnter={() => setSidebarOpen(true)}
       onMouseLeave={() => setSidebarOpen(false)}
-      className={`h-screen shadow-md z-50 overflow-y-auto 
-        transition-all duration-300 ease-in-out
-        ${sidebarOpen ? "w-[360px]" : "w-[190px]"}`}
+      className={`h-screen shadow-md z-50  
+        transition-all duration-300 sticky left-0 top-0 ease-in-out
+        ${sidebarOpen ? "w-[310px]" : "w-[190px]"}`}
       style={{
         background: "linear-gradient(180deg, #00B8D1 0%, #005E6B 100%)",
       }}
     >
-      <div className="flex flex-col justify-between text-white items-center h-full py-6">
+      <div className="flex flex-col justify-between text-white items-center h-full py-6  ">
         {/* Top section: Profile + Menu */}
         <div className="flex flex-col items-center w-full">
           {/* Profile */}
@@ -49,11 +56,11 @@ const SideBar = () => {
               <img
                 src={photo}
                 alt="profile"
-                className="object-cover w-full h-full"
+                className="object-cover  w-full h-full"
               />
             </div>
             {sidebarOpen && (
-              <p className="text-white mt-4 text-2xl font-semibold select-none transition-opacity duration-300">
+              <p className="text-white mt-4 text-lg font-semibold select-none transition-opacity duration-300">
                 Home Find
               </p>
             )}
@@ -61,22 +68,22 @@ const SideBar = () => {
 
           {/* Menu list */}
           <div>
-            <div className="flex flex-col justify-center items-center text-white w-full gap-3 mt-8 px-4">
+            <div className="w-full overflow-y-auto max-h-[450px] scrollbar-hide gap-1 mt-8 px-4">
               {menuItems.map(({ icon: Icon, label, path }) => (
                 <NavLink
                   key={label}
                   to={path}
                   className={({ isActive }) =>
                     `flex items-center gap-4 cursor-pointer w-full px-15 py-2 rounded-md transition-colors duration-200 select-none ${
-                      isActive ? "bg-white/30" : "hover:bg-white/20"
+                      isActive ? "bg-white/20" : "hover:bg-white/20"
                     }`
                   }
                 >
-                  <div className="flex items-center justify-center w-8 h-8">
+                  <div className="flex items-center justify-center w-5 h-5">
                     <Icon size={24} />
                   </div>
                   {sidebarOpen && (
-                    <span className="text-xl whitespace-nowrap">{label}</span>
+                    <span className="text-lg whitespace-nowrap">{label}</span>
                   )}
                 </NavLink>
               ))}
@@ -87,12 +94,15 @@ const SideBar = () => {
         {/* Bottom section: Logout Button */}
         <div>
           <div className="w-full px-8">
-            <div className="flex items-center gap-4 cursor-pointer hover:bg-white/20 w-full px-15 py-2 rounded-md transition-colors duration-200 select-none">
-              <div className="flex items-center justify-center w-8 h-8">
+            <div
+              onClick={handleLogout}
+              className="flex items-center gap-5 cursor-pointer hover:bg-white/20 w-full px-4 py-2 rounded-md transition-colors duration-200 select-none"
+            >
+              <div className="flex items-center justify-center w-5 h-5">
                 <Power size={24} />
               </div>
               {sidebarOpen && (
-                <span className="text-xl whitespace-nowrap">ອອກຈາກລະບົບ</span>
+                <span className="text-lg whitespace-nowrap">ອອກຈາກລະບົບ</span>
               )}
             </div>
           </div>
