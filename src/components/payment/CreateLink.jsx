@@ -1,5 +1,5 @@
-import React from "react";
-import { Link2, Edit, Trash2 } from "lucide-react";
+import React, { useState } from "react";
+import { Link2, Edit, Trash2, X } from "lucide-react";
 
 const data = [
   {
@@ -21,12 +21,63 @@ const data = [
 ];
 
 export const CreateLink = () => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isSuccessPopupOpen, setIsSuccessPopupOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    title: "",
+    detail: "",
+    date: "",
+    duration: "",
+    rent: "",
+    note: "",
+  });
+
+  const parseNumber = (value) =>
+    Number((value ?? 0).toString().replace(/,/g, "").trim()) || 0;
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = () => {
+    console.log("Form data:", formData);
+    setIsPopupOpen(true);
+    setIsSuccessPopupOpen(true);
+    // Reset form
+    setFormData({
+      title: "",
+      detail: "",
+      date: "",
+      duration: "",
+      rent: "",
+      note: "",
+    });
+  };
+
+  const handleCancel = () => {
+    setIsPopupOpen(false);
+    // Reset form
+    setFormData({
+      title: "",
+      detail: "",
+      date: "",
+      duration: "",
+      rent: "",
+      note: "",
+    });
+  };
+
   return (
-    <div className="min-h-screen bg-gray">
-      {/* Content */}
+    <div className="min-h-screen bg-gray relative">
+      {/* Main Content */}
       <div className="p-6">
         <div className="flex justify-end mb-6">
           <button
+            onClick={() => setIsPopupOpen(true)}
             className="text-white px-4 py-2 rounded-full flex items-center shadow hover:bg-[#138a9e] transition-colors"
             style={{
               background: "linear-gradient(to bottom, #00B8D1, #005E6B)",
@@ -195,6 +246,256 @@ export const CreateLink = () => {
           </div>
         </div>
       </div>
+
+      {/* Main Form Popup */}
+      {isPopupOpen && (
+        <div className="fixed inset-0 flex items-center justify-center p-4 z-50">
+          <div
+            className="bg-white rounded-lg w-full max-w-lg max-h-[95vh] overflow-y-auto"
+            style={{
+              border: "3px solid #00B8D1",
+            }}
+          >
+            {/* Header */}
+            <div className="p-4 border-b border-gray-200 relative">
+              {/* ปุ่ม X ด้านขวาสุด */}
+              <button
+                onClick={handleCancel}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* ข้อความอยู่กลาง */}
+              <h2 className="text-lg font-medium text-[#138a9e] text-center">
+                ການສ້າງລິ້ງຮຽກເກັບເງິນ
+              </h2>
+            </div>
+
+            {/* Form Content */}
+            <div className="p-4 space-y-4">
+              {/* Link Display */}
+              <div>
+                <label className="block text-sm text-gray-600 mb-1">
+                  ລິ້ງ :
+                </label>
+                <div className="bg-gray-100 p-2 rounded-lg text-sm text-gray-600">
+                  https://claude.ai/chat/65da426d-7f6d-450f-805a-ceb7a7977854
+                </div>
+              </div>
+
+              {/* Title */}
+              <div>
+                <label className="block text-sm text-gray-600 mb-1">
+                  ຫົວຂໍ້
+                </label>
+                <input
+                  type="text"
+                  name="title"
+                  value={formData.title}
+                  onChange={handleInputChange}
+                  placeholder="ເພິ່ມຫົວຂໍ້"
+                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00B8D1]"
+                />
+              </div>
+
+              {/* Date and Location */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-sm text-gray-600 mb-1">
+                    ກຳນົດວັນສົ່ງ
+                  </label>
+                  <input
+                    type={formData.date ? "date" : "text"}
+                    name="date"
+                    placeholder="ເລືອກວັນທີສົ່ງ"
+                    value={formData.date}
+                    onFocus={(e) => (e.target.type = "date")}
+                    onBlur={(e) => {
+                      if (!formData.date) e.target.type = "text";
+                    }}
+                    onChange={handleInputChange}
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00B8D1]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm text-gray-600 mb-1">
+                    ເລືອກຫ້ອງ
+                  </label>
+                  <select
+                    name="location"
+                    defaultValue=""
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00B8D1]"
+                  >
+                    <option value="" disabled hidden>
+                      ກາລຸນາເລືອກຫ້ອງທີ່ຕ້ອງການສົ່ງລິ້ງນີ້ເຖິງ
+                    </option>
+                    <option value="room1">ຫ້ອງ 1</option>
+                    <option value="room2">ຫ້ອງ 2</option>
+                    <option value="room3">ຫ້ອງ 3</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Detail */}
+              <div className="text-gray-600 mb-4">
+                <label className="block text-sm text-gray-600 mb-1">
+                  ຄ່າຫ້ອງ
+                </label>
+                <input
+                  type="text"
+                  name="room"
+                  value={formData.room}
+                  onChange={handleInputChange}
+                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00B8D1]"
+                />
+
+                <div className="grid grid-cols-2 gap-3 mt-4">
+                  <div>
+                    <label className="block text-sm text-gray-600 mb-1">
+                      ຄ່ານ້ຳ
+                    </label>
+                    <input
+                      type="text"
+                      name="water"
+                      value={formData.water}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00B8D1]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm text-gray-600 mb-1">
+                      ຄ່າໄຟ
+                    </label>
+                    <input
+                      type="text"
+                      name="electic"
+                      value={formData.electic}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00B8D1]"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Payment Summary */}
+              <div className="text-gray-600 mb-4">
+                <label className="block text-sm text-gray-600 mb-2">
+                  ສະຫຼຸບຍອດທັງໝົດ
+                </label>
+                <div
+                  className="space-y-2 text-sm"
+                  style={{
+                    border: "1px solid gray",
+                    borderRadius: "10px",
+                    padding: "10px",
+                  }}
+                >
+                  <div className="flex justify-between">
+                    <span>ຄ່າຫ້ອງ</span>
+                    <span>
+                      {parseNumber(formData.room).toLocaleString()} ກີບ
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>ຄ່ານ້ຳ</span>
+                    <span>
+                      {parseNumber(formData.water).toLocaleString()} ກີບ
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>ຄ່າໄຟ</span>
+                    <span>
+                      {parseNumber(formData.electic).toLocaleString()} ກີບ
+                    </span>
+                  </div>
+                  <div className="border-t border-gray-400 border-dashed pt-2 flex justify-between font-medium">
+                    <span>ລວມ</span>
+                    <span>
+                      {(
+                        parseNumber(formData.room) +
+                        parseNumber(formData.water) +
+                        parseNumber(formData.electic)
+                      ).toLocaleString()}{" "}
+                      ກີບ
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Note */}
+              <div>
+                <label className="block text-sm text-gray-600 mb-1">
+                  ໝາຍເຫດ
+                </label>
+                <textarea
+                  name="note"
+                  value={formData.note}
+                  onChange={handleInputChange}
+                  rows="2"
+                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00B8D1]"
+                ></textarea>
+              </div>
+            </div>
+
+            {/* Footer Buttons */}
+            <div className="p-4 border-t border-gray-200 flex space-x-3">
+              <button
+                onClick={handleCancel}
+                className="flex-1 px-4 py-2 border border-[#00B8D1] text-[#00B8D1] rounded-full hover:bg-gray-50 transition-colors"
+              >
+                ຍົກເລີກ
+              </button>
+              <button
+                onClick={handleSubmit}
+                className="flex-1 px-4 py-2 bg-[#00B8D1] text-white rounded-full hover:bg-[#138a9e] transition-colors"
+              >
+                ບັນທຶກ
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Success Popup */}
+      {isSuccessPopupOpen && (
+        <div className="fixed inset-0  flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg p-8 max-w-sm w-full text-center relative">
+            <button
+              onClick={() => {
+                setIsPopupOpen(false);
+                setIsSuccessPopupOpen(false);
+              }}
+              className="text-gray-400 hover:text-gray-600 absolute top-4 right-4"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="mb-4">
+              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg
+                  className="w-8 h-8 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={3}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-lg font-medium text-gray-800">
+                ສ້າງລິ້ງສຳເລັດ
+              </h3>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
