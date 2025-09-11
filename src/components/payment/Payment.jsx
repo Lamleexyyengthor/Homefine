@@ -22,7 +22,7 @@ export const Payment = () => {
     { label: "ປະຫວັດການຊໍາລະເງີນ", path: "/payments/historypay" },
     { label: "ຈັດການການຕີດໜີ້", path: "/payments/debt" },
     { label: "ປະຫວັດການຕີດໜີ້", path: "/payments/hisDebt" },
-    { label: "ສ້າງລີ້ງຊໍາລະເງີນ", path: "/payments/emty" },
+    { label: "ສ້າງລີ້ງຊໍາລະເງີນ", path: "/payments/link" },
   ];
   const handleAddss = () => {
     setIsOpen(true); // ປິດ modal ຟອມ

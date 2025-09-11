@@ -13,6 +13,7 @@ import { Wait } from '../payment/Wait'
 import { Historypay } from '../payment/Historypay'
 import { FormCards }   from '../payment/FormCard'
 import { HistoryDebt } from '../payment/HisDebt'
+import { CreateLink } from '../payment/CreateLink'
 import { Checkin } from '../checkin/Checkin'
 import { Allcheckin } from '../checkin/Allceckin'
 import { Hischeck } from '../checkin/Hischeck'
@@ -118,6 +119,10 @@ const router = createBrowserRouter([
                     {
                         path: "hisDebt",
                         element: <HistoryDebt/>
+                    },
+                    {
+                        path: "link",
+                        element: <CreateLink/>
                     }
                 ]
             },
