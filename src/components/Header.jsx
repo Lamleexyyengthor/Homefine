@@ -61,6 +61,10 @@ export const Header = () => {
     { icon: Repeat1, label: "ຈັດການແຈ້ງບັນຫາ", path: reportPath || currentPath === "/reportproblem" ? currentPath : "/reportproblem" },
     { icon: ScrollText, label: "ຈັດການສັນຍາເຊົ່າ", path: contractPath || currentPath === "/contracts" ? currentPath : "/contracts" },
     { icon: NotepadText, label: "ລາຍງານ", path: "/reports" },
+    { icon: NotepadText, label: "ລາຍງານຫ້ອງ", path: "/roomReport" },
+    { icon: NotepadText, label: "ລາຍງານການຊຳລະເງິນ", path: "/paymentReport" },
+    { icon: NotepadText, label: "ລາຍງານຄ້າງຊຳລະ", path: "/debtReport" },
+    { icon: NotepadText, label: "ລາຍງານຜູ້ເຊົ່າ", path: "/tenantReport" },
   ];
 
   // Find the current active menu item
@@ -71,10 +75,7 @@ export const Header = () => {
       {/* Show only active path's icon and label */}
       {activeItem && (
         <div className="ml-15 flex text-[32px] items-center w-auto h-[85px] flex-row gap-3">
-          <activeItem.icon
-            className="w-9 h-9"
-            style={{ stroke: "url(#gradientStroke)" }}
-          />
+          <activeItem.icon className="w-9 h-9 text-[#00B8D1]" />
           <p className="font-bold text-transparent bg-clip-text bg-gradient-to-b from-[#00B8D1] to-[#005E6B]">
             {activeItem.label}
           </p>
