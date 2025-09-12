@@ -108,13 +108,14 @@ export const RoomReport = () => {
   );
 
   const getStatusStyle = (status, color) => {
-    const baseStyle = "px-3 py-1 rounded-full text-white text-sm font-medium";
+    const baseStyle = "px-10 py-1 rounded-full text-sm font-medium border-2";
+
     if (color === "green") {
-      return `${baseStyle} bg-green-500`;
+      return `${baseStyle} bg-green-100 text-green-700 border-green-500`;
     } else if (color === "red") {
-      return `${baseStyle} bg-red-500`;
+      return `${baseStyle} bg-red-100 text-red-700 border-red-500`;
     }
-    return `${baseStyle} bg-gray-500`;
+    return `${baseStyle} bg-gray-100 text-gray-700 border-gray-500`;
   };
 
   const handleFilterChange = (filter) => {
@@ -243,7 +244,7 @@ export const RoomReport = () => {
                     <td className="px-6 py-4 text-sm text-center text-gray-900">
                       {room.price}
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-4 text-center">
                       <span
                         className={getStatusStyle(
                           room.status,

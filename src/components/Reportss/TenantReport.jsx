@@ -118,7 +118,7 @@ export const TenantReport = () => {
   );
 
   const getStatusStyle = (status, color) => {
-    const baseStyle = "px-3 py-1 rounded-full text-sm font-medium border";
+    const baseStyle = "px-7 py-1 rounded-full text-sm font-medium border-2";
     if (color === "green") {
       return `${baseStyle} bg-green-100 text-green-800 border-green-700`;
     } else if (color === "red") {
