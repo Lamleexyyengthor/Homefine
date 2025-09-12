@@ -29,7 +29,7 @@ export const DebtReport = () => {
       period: "ຕຸລາ (10) 2024",
       tenantName: "ນາງ ແສງ ພອງສິດ",
       phone: "020 55555555",
-      dueDate: "30 - 10 - 2024",
+      dueDate: "30 - 09 - 2024",
       status: "paid",
       month: "ຕຸລາ",
       year: 2024,
@@ -116,10 +116,19 @@ export const DebtReport = () => {
     }
 
     // Apply sorting filter
+    // Apply sorting filter
     if (activeFilter === "ໃໝ່ສຸດ") {
-      result = result.sort((a, b) => new Date(b.dueDate) - new Date(a.dueDate));
+      result = result.sort((a, b) => {
+        const dateA = a.dueDate.split(" - ").reverse().join("-"); // "30 - 10 - 2024" => "2024-10-30"
+        const dateB = b.dueDate.split(" - ").reverse().join("-");
+        return new Date(dateB) - new Date(dateA);
+      });
     } else if (activeFilter === "ເກົ່າສຸດ") {
-      result = result.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+      result = result.sort((a, b) => {
+        const dateA = a.dueDate.split(" - ").reverse().join("-");
+        const dateB = b.dueDate.split(" - ").reverse().join("-");
+        return new Date(dateA) - new Date(dateB);
+      });
     }
 
     return result;

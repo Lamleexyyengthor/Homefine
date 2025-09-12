@@ -27,34 +27,9 @@ export function PaymentReport() {
     { month: "08/2024", amount: 55 },
     { month: "09/2024", amount: 70 },
     { month: "10/2024", amount: 30 },
-    { month: "11/2024", amount: 40 },
+    { month: "ຕຸລາ(11)2024", amount: 40 },
     { month: "12/2024", amount: 55 },
   ];
-
-  const getLaoMonthName = (monthNumber) => {
-    const monthNames = {
-      "01": "ມັງກອນ",
-      "02": "ກຸມພາ",
-      "03": "ມີນາ",
-      "04": "ເມສາ",
-      "05": "ພຶດສະພາ",
-      "06": "ມິຖຸນາ",
-      "07": "ກໍລະກົດ",
-      "08": "ສິງຫາ",
-      "09": "ກັນຍາ",
-      10: "ຕຸລາ",
-      11: "ພະຈິກ",
-      12: "ທັນວາ",
-    };
-    return monthNames[monthNumber] || monthNumber;
-  };
-
-  // ฟังก์ชันแปลงรูปแบบวันที่จาก 11/2024 เป็น ພະຈິກ(11) 2024
-  const formatMonthYear = (monthYear) => {
-    const [month, year] = monthYear.split("/");
-    const laoMonth = getLaoMonthName(month);
-    return `${laoMonth}(${month}) ${year}`;
-  };
 
   // Sample payment data
   const paymentData = [
@@ -63,7 +38,7 @@ export function PaymentReport() {
       name: "ນາງ ມະນີ ແສງຈັນ",
       roomNumber: "A05",
       floor: 2,
-      month: "11/2024",
+      month: "ຕຸລາ(11)2024",
       amount: "1,000,000 ກີບ",
       statusColor: "green",
       status: "ຈ່າຍແລ້ວ",
@@ -77,7 +52,7 @@ export function PaymentReport() {
       name: "ນາງ ມະນີ ແສງຈັນ",
       roomNumber: "A06",
       floor: 2,
-      month: "11/2024",
+      month: "ຕຸລາ(11)2024",
       amount: "1,000,000 ກີບ",
       statusColor: "green",
       status: "ຈ່າຍແລ້ວ",
@@ -91,7 +66,7 @@ export function PaymentReport() {
       name: "ນາງ ມະນີ ແສງຈັນ",
       roomNumber: "B03",
       floor: 3,
-      month: "11/2024",
+      month: "ຕຸລາ(11)2024",
       amount: "1,200,000 ກີບ",
       statusColor: "red",
       status: "ຄ້າງຈ່າຍ",
@@ -105,7 +80,7 @@ export function PaymentReport() {
       name: "ນາງ ມະນີ ແສງຈັນ",
       roomNumber: "C04",
       floor: 1,
-      month: "11/2024",
+      month: "ຕຸລາ(11)2024",
       amount: "900,000 ກີບ",
       statusColor: "green",
       status: "ຈ່າຍແລ້ວ",
@@ -119,7 +94,7 @@ export function PaymentReport() {
       name: "ນາງ ມະນີ ແສງຈັນ",
       roomNumber: "D07",
       floor: 4,
-      month: "11/2024",
+      month: "ຕຸລາ(11)2024",
       amount: "1,500,000 ກີບ",
       statusColor: "red",
       status: "ຄ້າງຈ່າຍ",
@@ -147,15 +122,21 @@ export function PaymentReport() {
       );
     }
 
+    // Function แปลง date string เป็น Date object
+    const parseDate = (dateStr) => {
+      const [day, month, year] = dateStr.split("-").map(Number);
+      return new Date(year, month - 1, day);
+    };
+
     // Apply status filter
     if (activeFilter === "ຈ່າຍແລ້ວ") {
       result = result.filter((item) => item.statusColor === "green");
     } else if (activeFilter === "ຄ້າງຈ່າຍ") {
       result = result.filter((item) => item.statusColor === "red");
     } else if (activeFilter === "ໃໝ່ສຸດ") {
-      result = result.sort((a, b) => new Date(b.date) - new Date(a.date));
+      result = result.sort((a, b) => parseDate(b.date) - parseDate(a.date));
     } else if (activeFilter === "ເກົ່າສຸດ") {
-      result = result.sort((a, b) => new Date(a.date) - new Date(b.date));
+      result = result.sort((a, b) => parseDate(a.date) - parseDate(b.date));
     }
 
     return result;
@@ -419,7 +400,7 @@ export function PaymentReport() {
                       {payment.amount}
                     </td>
                     <td className="px-4 py-4 text-sm text-center text-gray-500 align-middle">
-                      {formatMonthYear(payment.month)}
+                      {payment.month}
                     </td>
                     <td className="px-4 py-4 text-sm text-center text-gray-500 align-middle">
                       {payment.name}
