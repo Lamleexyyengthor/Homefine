@@ -29,6 +29,10 @@ import { Contract } from '../contractroom/Contract'
 import { LeaseAgrement } from '../contractroom/LeaseAgrement'
 import { RentalReceipt } from '../contractroom/RentalReceipt'
 import { Report } from '../Reportss/Report'
+import { RoomReport } from '../Reportss/RoomReport'
+import { PaymentReport } from '../Reportss/PaymentReport'
+import { DebtReport } from '../Reportss/DebtReport'
+import { TenantReport } from '../Reportss/TenantReport'
 import { Login } from '../../pages/auth/Login'
 import { Manage } from '../manage-reservations/Manage'
 import { Manage1 } from '../manage-reservations/Manage1'
@@ -193,8 +197,34 @@ const router = createBrowserRouter([
             },
             {
                 path: "reports",
-                element: <Report/>
+                element: <Report/>,
+                children: [
+                    {
+                        index: "reports",
+                        element: <Report/>
+                    },
+                    {
+                        path: "reports",
+                        element: <RoomReport/>
+                    },
+                ]
                 
+            },
+            {
+                path: "roomReport",
+                element: <RoomReport/>,
+            },
+            {
+                path: "paymentReport",
+                element: <PaymentReport/>,
+            },
+            {
+                path: "debtReport",
+                element: <DebtReport/>,
+            },
+            {
+                path: "tenantReport",
+                element: <TenantReport/>,
             },
            
            
