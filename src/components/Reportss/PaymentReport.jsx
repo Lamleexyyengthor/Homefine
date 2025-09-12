@@ -6,6 +6,7 @@ import {
   ArrowDownToLine,
   ChevronDown,
 } from "lucide-react";
+import { IoMdDownload } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
 export function PaymentReport() {
@@ -417,14 +418,8 @@ export function PaymentReport() {
                       </div>
                     </td>
                     <td className="px-4 py-4 text-center align-middle">
-                      <div className="flex items-center justify-center">
-                        <button className="w-6 h-6 rounded-full flex items-center justify-center bg-gradient-to-r from-[#00B8D1] to-[#005E6B] hover:from-[#0099b3] hover:to-[#004d5c] transition-colors">
-                          <ArrowDownToLine
-                            size={14}
-                            className="text-white"
-                            strokeWidth={3}
-                          />
-                        </button>
+                      <div className="flex w-[25px] h-[25px] bg-[#00B8D1] rounded-full items-center justify-center">
+                        <IoMdDownload className="w-4 h-4 text-white hover:text-blue-700 cursor-pointer" />
                       </div>
                     </td>
                     <td className="px-4 py-4 text-center align-middle">

@@ -251,22 +251,15 @@ export const CreateLink = () => {
       {isPopupOpen && (
         <div className="fixed inset-0 flex items-center justify-center p-4 z-50">
           <div
-            className="bg-white rounded-lg w-full max-w-lg max-h-[95vh] overflow-y-auto"
+            className="bg-white rounded-lg w-full max-w-lg max-h-[95vh] overflow-y-auto hide-scrollbar"
             style={{
               border: "3px solid #00B8D1",
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
             }}
           >
             {/* Header */}
             <div className="p-4 border-b border-gray-200 relative">
-              {/* ปุ่ม X ด้านขวาสุด */}
-              <button
-                onClick={handleCancel}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              {/* ข้อความอยู่กลาง */}
               <h2 className="text-lg font-medium text-[#138a9e] text-center">
                 ການສ້າງລິ້ງຮຽກເກັບເງິນ
               </h2>
