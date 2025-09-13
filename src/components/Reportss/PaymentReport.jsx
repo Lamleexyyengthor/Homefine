@@ -229,7 +229,7 @@ export function PaymentReport() {
           </div>
         </div>
 
-        <div className="relative h-80 mb-4 bg-gray-50 rounded-lg px-4 -py-6">
+        <div className="relative h-80 mb-4 bg-gray-50 rounded-lg">
           {(() => {
             const maxAmount = Math.max(...chartData.map((d) => d.amount));
             const displayMax = Math.max(maxAmount, 100);
@@ -275,7 +275,7 @@ export function PaymentReport() {
                 <div className="absolute left-20 h-80 border-2 border-gray-300"></div>
 
                 {/* เส้นฐาน (x-axis) */}
-                <div className="absolute left-12 right-0 bottom-1.5 border-2 border-gray-300 z-1"></div>
+                <div className="absolute left-12 right-0 bottom-1.5 border-1 border-gray-300 z-1"></div>
 
                 {/* Bars */}
                 <div className="absolute inset-0 flex items-end justify-around gap-2 left-20 -bottom-4">
