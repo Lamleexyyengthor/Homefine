@@ -18,18 +18,18 @@ export function PaymentReport() {
 
   // Chart data for monthly payment report
   const chartData = [
-    { month: "01/2024", amount: 60 },
-    { month: "02/2024", amount: 28 },
+    { month: "01/2024", amount: 10 },
+    { month: "02/2024", amount: 30 },
     { month: "03/2024", amount: 100 },
-    { month: "04/2024", amount: 12 },
-    { month: "05/2024", amount: 36 },
-    { month: "06/2024", amount: 80 },
-    { month: "07/2024", amount: 60 },
-    { month: "08/2024", amount: 55 },
-    { month: "09/2024", amount: 70 },
+    { month: "04/2024", amount: 30 },
+    { month: "05/2024", amount: 60 },
+    { month: "06/2024", amount: 30 },
+    { month: "07/2024", amount: 30 },
+    { month: "08/2024", amount: 60 },
+    { month: "09/2024", amount: 10 },
     { month: "10/2024", amount: 30 },
-    { month: "ຕຸລາ(11)2024", amount: 40 },
-    { month: "12/2024", amount: 55 },
+    { month: "11/2024", amount: 10 },
+    { month: "12/2024", amount: 60 },
   ];
 
   // Sample payment data
@@ -39,7 +39,7 @@ export function PaymentReport() {
       name: "ນາງ ມະນີ ແສງຈັນ",
       roomNumber: "A05",
       floor: 2,
-      month: "ຕຸລາ(11)2024",
+      month: "ຕຸລາ(10)2024",
       amount: "1,000,000 ກີບ",
       statusColor: "green",
       status: "ຈ່າຍແລ້ວ",
@@ -53,7 +53,7 @@ export function PaymentReport() {
       name: "ນາງ ມະນີ ແສງຈັນ",
       roomNumber: "A06",
       floor: 2,
-      month: "ຕຸລາ(11)2024",
+      month: "ຕຸລາ(10)2024",
       amount: "1,000,000 ກີບ",
       statusColor: "green",
       status: "ຈ່າຍແລ້ວ",
@@ -67,7 +67,7 @@ export function PaymentReport() {
       name: "ນາງ ມະນີ ແສງຈັນ",
       roomNumber: "B03",
       floor: 3,
-      month: "ຕຸລາ(11)2024",
+      month: "ຕຸລາ(10)2024",
       amount: "1,200,000 ກີບ",
       statusColor: "red",
       status: "ຄ້າງຈ່າຍ",
@@ -81,7 +81,7 @@ export function PaymentReport() {
       name: "ນາງ ມະນີ ແສງຈັນ",
       roomNumber: "C04",
       floor: 1,
-      month: "ຕຸລາ(11)2024",
+      month: "ຕຸລາ(10)2024",
       amount: "900,000 ກີບ",
       statusColor: "green",
       status: "ຈ່າຍແລ້ວ",
@@ -95,7 +95,7 @@ export function PaymentReport() {
       name: "ນາງ ມະນີ ແສງຈັນ",
       roomNumber: "D07",
       floor: 4,
-      month: "ຕຸລາ(11)2024",
+      month: "ຕຸລາ(10)2024",
       amount: "1,500,000 ກີບ",
       statusColor: "red",
       status: "ຄ້າງຈ່າຍ",
@@ -151,16 +151,6 @@ export function PaymentReport() {
     startIndex,
     startIndex + itemsPerPage
   );
-
-  const getStatusStyle = (status, color) => {
-    const baseStyle = "px-3 py-1 rounded-full text-white text-sm font-medium";
-    if (color === "green") {
-      return `${baseStyle} bg-green-500`;
-    } else if (color === "red") {
-      return `${baseStyle} bg-red-500`;
-    }
-    return `${baseStyle} bg-gray-500`;
-  };
 
   const handleFilterChange = (filter) => {
     setActiveFilter(filter);
@@ -239,50 +229,84 @@ export function PaymentReport() {
           </div>
         </div>
 
-        <div className="relative h-64 mb-4 bg-gray-50 rounded-lg p-4">
-          {/* เส้นขีดแนวนอน */}
-          {[100, 60, 30, 10].map((val, idx) => (
-            <div
-              key={idx}
-              className="absolute left-0 right-0 flex items-center"
-              style={{
-                bottom: `${(val / 100) * 100}%`,
-              }}
-            >
-              <span className="w-12 text-xs text-gray-600">{val} ລ້ານ</span>
-              <div className="flex-1 border-t border-gray-300"></div>
-            </div>
-          ))}
+        <div className="relative h-80 mb-4 bg-gray-50 rounded-lg px-4 -py-6">
+          {(() => {
+            const maxAmount = Math.max(...chartData.map((d) => d.amount));
+            const displayMax = Math.max(maxAmount, 100);
+            const containerHeight = 256;
 
-          {/* เส้นแกนตั้งด้านหน้าแท่งแรก */}
-          <div className="absolute left-12 top-0 bottom-0 border-2 border-gray-300"></div>
+            function getCumulativeScale(maxValue, step = 10) {
+              const levels = [0];
+              let add = step;
+              let current = 0;
 
-          {/* เส้นฐาน (x-axis) */}
-          <div className="absolute left-0 right-0 bottom-6 border-2 border-gray-300"></div>
+              while (current < maxValue) {
+                current += add;
+                levels.push(current);
+                add += step;
+              }
 
-          {/* Bars */}
-          <div className="absolute inset-0 flex items-end justify-around gap-2 px-12">
-            {chartData.map((data, index) => {
-              const barColor = index % 2 === 0 ? "#00B8D1" : "#005E6B";
+              return levels;
+            }
 
-              return (
-                <div key={index} className="flex flex-col items-center gap-2">
-                  <div
-                    className="transition-all hover:opacity-80"
-                    style={{
-                      backgroundColor: barColor,
-                      width: "50px",
-                      height: `${(data.amount / 100) * 160}px`,
-                      minHeight: "10px",
-                    }}
-                  ></div>
-                  <span className="text-xs text-gray-600 whitespace-nowrap">
-                    {data.month}
-                  </span>
+            const levels = getCumulativeScale(displayMax, 10);
+
+            return (
+              <>
+                {/* เส้นขีดแนวนอน */}
+                {levels.map((val, i) => {
+                  if (val === 0) return null;
+                  const bottom = (val / displayMax) * containerHeight;
+                  return (
+                    <div
+                      key={i}
+                      className="absolute left-0 right-0 flex items-center"
+                      style={{ bottom: `${bottom}px` }}
+                    >
+                      <span className="w-12 text-xs text-gray-600">
+                        {val === 0 ? "" : val} ລ້ານ
+                      </span>
+                      <div className="flex-1 border-t border-gray-300"></div>
+                    </div>
+                  );
+                })}
+
+                {/* เส้นแกนตั้ง */}
+                <div className="absolute left-20 h-80 border-2 border-gray-300"></div>
+
+                {/* เส้นฐาน (x-axis) */}
+                <div className="absolute left-12 right-0 bottom-1.5 border-2 border-gray-300 z-1"></div>
+
+                {/* Bars */}
+                <div className="absolute inset-0 flex items-end justify-around gap-2 left-20 -bottom-4">
+                  {chartData.map((data, index) => {
+                    const barColor = index % 2 === 0 ? "#00B8D1" : "#005E6B";
+                    const scaledHeight =
+                      (data.amount / displayMax) * containerHeight;
+
+                    return (
+                      <div
+                        key={index}
+                        className="flex flex-col items-center gap-2"
+                      >
+                        <div
+                          className="transition-all hover:opacity-80"
+                          style={{
+                            backgroundColor: barColor,
+                            width: "50px",
+                            height: `${scaledHeight}px`,
+                          }}
+                        ></div>
+                        <span className="text-xs text-gray-600 whitespace-nowrap">
+                          {data.month}
+                        </span>
+                      </div>
+                    );
+                  })}
                 </div>
-              );
-            })}
-          </div>
+              </>
+            );
+          })()}
         </div>
 
         <div className="text-center">
